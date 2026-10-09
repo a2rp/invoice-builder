@@ -25,7 +25,7 @@ The current invoice is saved in local storage in this browser. It is not sent to
 
 Run npm install to install dependencies, npm run dev to start the local server, npm run lint and npm run build to check the project, and npm run deploy to publish it to GitHub Pages.
 
-Planned URL after deployment: https://a2rp.github.io/invoice-builder/
+Deployed site: https://a2rp.github.io/invoice-builder/
 
 ## Future improvements
 
