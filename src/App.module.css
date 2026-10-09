@@ -1,0 +1,9 @@
+.app-shell { min-height: 100vh; color: var(--ink); background: var(--paper); }
+.app-shell .page-content { width: min(1380px, calc(100% - 48px)); margin: 0 auto; padding: 96px 0 64px; }
+@media (max-width: 680px) { .app-shell .page-content { width: calc(100% - 28px); padding-top: 84px; padding-bottom: 40px; } }
+@media print {
+    .app-shell { background: #fff; }
+    .app-shell > header, .app-shell > footer, .app-shell > button { display: none !important; }
+    .app-shell .page-content { width: 100%; margin: 0; padding: 0; }
+    .app-shell .page-content > * { display: block; }
+}

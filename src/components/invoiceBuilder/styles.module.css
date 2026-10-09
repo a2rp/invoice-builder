@@ -1,0 +1,41 @@
+.invoiceBuilder {
+    .titleRow { display: flex; align-items: end; justify-content: space-between; gap: 20px; padding: 16px 0 21px; }
+    .context { color: var(--accent); font-size: 9px; font-weight: 800; letter-spacing: .14em; }
+    .titleRow h1 { margin-top: 8px; font-size: clamp(38px, 4vw, 52px); font-weight: 750; line-height: 1; letter-spacing: -.055em; }
+    .titleRow h1 span { color: var(--accent); font-family: Georgia, serif; font-style: italic; font-weight: 500; }
+    .description { margin-top: 9px; color: var(--muted); font-size: 12px; }
+    .localBadge { display: flex; align-items: center; gap: 8px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; color: var(--muted); background: #fff; font-size: 10px; }.localBadge svg { width: 14px; color: var(--accent); }
+    .workspace { display: grid; grid-template-columns: minmax(530px, .95fr) minmax(0, 1.05fr); align-items: start; gap: 14px; }
+    .editorPanel { padding: 19px; border: 1px solid var(--line); border-radius: 13px; background: var(--card); }
+    .editorHeading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .editorHeading h2 { font-size: 16px; font-weight: 750; }.editorHeading p { color: var(--muted); font-size: 9px; }
+    .printButton, .previewToolbar button { display: inline-flex; min-height: 32px; align-items: center; gap: 6px; padding: 0 10px; border: 1px solid var(--line); border-radius: 7px; color: var(--ink); background: #fff; font-size: 9px; font-weight: 700; }.printButton svg, .previewToolbar button svg { width: 13px; }
+    .fieldGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 15px; }
+    .editorPanel label { display: grid; min-width: 0; gap: 4px; color: var(--muted); font-size: 8px; font-weight: 700; }
+    .editorPanel input, .editorPanel select, .editorPanel textarea { width: 100%; min-width: 0; min-height: 32px; padding: 5px 7px; border: 1px solid var(--line); border-radius: 6px; outline-color: var(--accent); background: #fff; color: var(--ink); font-size: 9px; font-weight: 500; }
+    .editorPanel textarea { resize: vertical; line-height: 1.45; }
+    .partyGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-top: 13px; }
+    .partyGrid fieldset { display: grid; gap: 7px; padding: 9px; border: 1px solid var(--line); border-radius: 8px; }.partyGrid legend { padding: 0 4px; color: var(--ink); font-size: 9px; font-weight: 750; }
+    .itemEditor { margin-top: 14px; }.itemHeading { display: flex; align-items: end; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+    .itemHeading h3 { font-size: 12px; font-weight: 750; }.itemHeading p { color: var(--muted); font-size: 8px; }.itemHeading label { width: 110px; }
+    .itemRow, .newItem { display: grid; grid-template-columns: minmax(120px, 1fr) 55px 90px 95px 24px; align-items: end; gap: 6px; padding: 7px 0; border-top: 1px solid #f0ede6; }
+    .itemRow > strong { padding-bottom: 7px; font-size: 9px; text-align: right; white-space: nowrap; }
+    .removeButton { width: 24px; height: 27px; display: grid; place-items: center; border: 0; border-radius: 5px; color: #aa8c7d; background: transparent; }.removeButton:hover { color: #b44f39; background: #fbf0eb; }.removeButton svg { width: 12px; }
+    .newItem { align-items: end; padding: 8px; border: 1px dashed #d9c7b8; border-radius: 7px; background: #fcfaf6; }.newItem > button { width: 28px; height: 28px; display: grid; place-items: center; border: 0; border-radius: 6px; color: #fff; background: var(--accent); }.newItem > button svg { width: 14px; }
+    .empty { padding: 12px 0; color: var(--muted); font-size: 9px; }
+    .notesField { display: grid; gap: 5px; margin-top: 12px; color: var(--muted); font-size: 8px; font-weight: 700; }.notesField textarea { width: 100%; min-height: 42px; padding: 7px; border: 1px solid var(--line); border-radius: 6px; outline-color: var(--accent); font-size: 9px; }
+    .previewPanel { min-width: 0; padding: 12px; border: 1px solid #e8e0d4; border-radius: 13px; background: #ede9df; }
+    .previewToolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }.previewToolbar > span { display: flex; align-items: center; gap: 6px; color: #687268; font-size: 9px; font-weight: 700; }.previewToolbar i { width: 7px; height: 7px; border-radius: 50%; background: #57956d; }
+    .invoiceSheet { min-height: 640px; padding: 38px 34px 24px; border-radius: 4px; background: #fff; box-shadow: 0 6px 20px #493c2817; }
+    .sheetTop { display: flex; align-items: center; justify-content: space-between; padding-bottom: 22px; border-bottom: 1px solid var(--line); }.sheetTop > div { display: flex; align-items: center; gap: 9px; }.sheetTop strong { font-size: 11px; }.sheetTop > span:last-child { color: #aa5d36; font-size: 18px; font-weight: 750; letter-spacing: .12em; }
+    .brandMark { width: 29px; height: 29px; display: grid; place-items: center; border-radius: 9px; color: #fff; background: #a4532c; font-size: 12px; font-weight: 800; }
+    .invoiceTitle { display: flex; justify-content: space-between; gap: 15px; padding: 26px 0 20px; }.invoiceTitle p, .dateGrid span, .paymentNote span { color: #928c80; font-size: 7px; font-weight: 800; letter-spacing: .12em; }.invoiceTitle h2 { margin-top: 5px; font-family: Georgia, serif; font-size: 22px; font-weight: 500; }.invoiceTitle > div > span, .invoiceTitle small { display: block; margin-top: 3px; color: #73776e; font-size: 8px; }.invoiceTitle small { white-space: pre-line; }.invoiceTitle > strong { align-self: start; color: #4b524b; font-size: 10px; }
+    .dateGrid { display: grid; grid-template-columns: 1fr 1fr 1.4fr; gap: 8px; padding: 12px 0 21px; border-bottom: 1px solid var(--line); }.dateGrid > div { display: grid; align-content: start; gap: 4px; }.dateGrid strong { font-size: 9px; }.dateGrid small { color: #73776e; font-size: 8px; white-space: pre-line; }
+    .sheetTable { overflow-x: auto; margin-top: 18px; }.sheetTable table { width: 100%; min-width: 420px; text-align: right; }.sheetTable th { padding: 8px 6px; border-bottom: 1px solid #e9e5dc; color: #858276; font-size: 7px; letter-spacing: .08em; }.sheetTable th:first-child, .sheetTable td:first-child { text-align: left; }.sheetTable td { padding: 11px 6px; border-bottom: 1px solid #f1eee8; font-size: 8px; }
+    .totalBlock { display: grid; width: min(235px, 100%); gap: 8px; margin: 18px 0 0 auto; }.totalBlock > div { display: flex; justify-content: space-between; gap: 10px; color: #73776e; font-size: 8px; }.totalBlock strong { color: #343a34; }.totalBlock .grandTotal { padding-top: 9px; border-top: 1px solid #d9d2c6; color: #262d28; font-size: 11px; font-weight: 750; }.grandTotal strong { font-size: 15px; }
+    .paymentNote { margin-top: 24px; padding: 12px; border-radius: 5px; background: #f8f6f0; }.paymentNote p { margin-top: 4px; color: #656a61; font-size: 8px; white-space: pre-line; }
+    .sheetFooter { display: flex; justify-content: space-between; margin-top: 26px; padding-top: 10px; border-top: 1px solid #eeeae3; color: #a19b8f; font-size: 7px; }
+    @media (max-width: 1100px) { .workspace { grid-template-columns: 1fr; }.previewPanel { max-width: 780px; width: 100%; margin: 0 auto; }.invoiceSheet { min-height: 0; } }
+    @media (max-width: 650px) { .titleRow { align-items: flex-start; flex-direction: column; }.workspace { grid-template-columns: minmax(0,1fr); }.editorPanel { padding: 13px; }.editorHeading { align-items: flex-start; flex-direction: column; }.fieldGrid { grid-template-columns: 1fr 1fr; }.partyGrid { grid-template-columns: 1fr; }.itemRow, .newItem { grid-template-columns: minmax(100px,1fr) 42px 72px 24px; }.itemRow > strong { display: none; }.newItem > button { grid-column: 4; grid-row: 1; }.previewPanel { padding: 7px; }.invoiceSheet { padding: 24px 17px; }.dateGrid { grid-template-columns: 1fr 1fr; }.dateGrid > div:last-child { grid-column: 1/-1; } }
+    @media print { .titleRow, .editorPanel, .previewToolbar { display: none !important; }.workspace { display: block; }.previewPanel { padding: 0; border: 0; background: #fff; }.invoiceSheet { min-height: 0; padding: 0; border-radius: 0; box-shadow: none; } }
+}
