@@ -16,7 +16,7 @@ const App = () => {
     }, []);
     return <div className={styles["app-shell"]} id="top">
         <SiteHeader title="Paperline" mark="P" navItems={[["Invoice", "#workspace"], ["Items", "#items"], ["Preview", "#preview"]]} repoUrl={repository} />
-        <main className={styles["page-content"]}><InvoiceBuilder /></main>
+        <main className={styles["page-content"]} id="main-content" tabIndex={-1}><InvoiceBuilder /></main>
         <SiteFooter repoUrl={repository} />
         <BackToTop visible={showBackToTop} />
     </div>;

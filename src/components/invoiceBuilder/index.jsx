@@ -10,7 +10,7 @@ const localDate = (offset = 0) => {
     return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, "0"), String(date.getDate()).padStart(2, "0")].join("-");
 };
 const defaultInvoice = {
-    number: "PL-2026-014", date: localDate(), dueDate: localDate(14), currency: "INR", taxRate: 18,
+    number: `PL-${new Date().getFullYear()}-014`, date: localDate(), dueDate: localDate(14), currency: "INR", taxRate: 18,
     seller: "Paperline Studio", sellerEmail: "hello@paperline.studio", sellerAddress: "17, Lake View Road\nBengaluru, Karnataka",
     client: "Avery Design Co.", clientEmail: "accounts@averydesign.co", clientAddress: "42 Market Street\nPune, Maharashtra",
     notes: "Thank you for working with us. Please include the invoice number with your payment.",
@@ -20,8 +20,51 @@ const defaultInvoice = {
         { id: 3, description: "Icon set and handoff", quantity: 1, rate: 8500 },
     ],
 };
+const currencies = ["INR", "USD", "EUR"];
+const taxRates = [0, 5, 12, 18, 28];
+const isDateInput = (value) => {
+    if (typeof value !== "string") return false;
+    if (value === "") return true;
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+    const date = new Date(`${value}T12:00:00`);
+    return !Number.isNaN(date.getTime())
+        && date.getFullYear() === Number(value.slice(0, 4))
+        && date.getMonth() + 1 === Number(value.slice(5, 7))
+        && date.getDate() === Number(value.slice(8, 10));
+};
+const isInvoiceItem = (item) => item && typeof item === "object"
+    && (typeof item.id === "string" || Number.isFinite(item.id))
+    && typeof item.description === "string"
+    && Number.isFinite(item.quantity) && item.quantity > 0
+    && Number.isFinite(item.rate) && item.rate >= 0;
 const readInvoice = () => {
-    try { const saved = localStorage.getItem(storageKey); return saved ? { ...defaultInvoice, ...JSON.parse(saved) } : defaultInvoice; } catch { return defaultInvoice; }
+    try {
+        const saved = localStorage.getItem(storageKey);
+        if (!saved) return defaultInvoice;
+        const parsed = JSON.parse(saved);
+        if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) return defaultInvoice;
+        return {
+            ...defaultInvoice,
+            ...parsed,
+            number: typeof parsed.number === "string" ? parsed.number : defaultInvoice.number,
+            date: isDateInput(parsed.date) ? parsed.date : defaultInvoice.date,
+            dueDate: isDateInput(parsed.dueDate) ? parsed.dueDate : defaultInvoice.dueDate,
+            currency: currencies.includes(parsed.currency) ? parsed.currency : defaultInvoice.currency,
+            taxRate: taxRates.includes(parsed.taxRate) ? parsed.taxRate : defaultInvoice.taxRate,
+            seller: typeof parsed.seller === "string" ? parsed.seller : defaultInvoice.seller,
+            sellerEmail: typeof parsed.sellerEmail === "string" ? parsed.sellerEmail : defaultInvoice.sellerEmail,
+            sellerAddress: typeof parsed.sellerAddress === "string" ? parsed.sellerAddress : defaultInvoice.sellerAddress,
+            client: typeof parsed.client === "string" ? parsed.client : defaultInvoice.client,
+            clientEmail: typeof parsed.clientEmail === "string" ? parsed.clientEmail : defaultInvoice.clientEmail,
+            clientAddress: typeof parsed.clientAddress === "string" ? parsed.clientAddress : defaultInvoice.clientAddress,
+            notes: typeof parsed.notes === "string" ? parsed.notes : defaultInvoice.notes,
+            items: Array.isArray(parsed.items)
+                ? parsed.items.filter(isInvoiceItem)
+                : defaultInvoice.items,
+        };
+    } catch {
+        return defaultInvoice;
+    }
 };
 const dateText = (value) => value ? new Intl.DateTimeFormat("en", { day: "numeric", month: "short", year: "numeric" }).format(new Date(value + "T12:00:00")) : "Choose a date";
 const currencyText = (value, currency) => new Intl.NumberFormat("en-IN", { style: "currency", currency, maximumFractionDigits: 2 }).format(Number(value) || 0);
@@ -30,7 +73,15 @@ const InvoiceBuilder = () => {
     const [invoice, setInvoice] = useState(readInvoice);
     const [draft, setDraft] = useState({ description: "", quantity: "1", rate: "" });
     const [pendingDelete, setPendingDelete] = useState(null);
-    useEffect(() => localStorage.setItem(storageKey, JSON.stringify(invoice)), [invoice]);
+    const [storageWarning, setStorageWarning] = useState(false);
+    useEffect(() => {
+        try {
+            localStorage.setItem(storageKey, JSON.stringify(invoice));
+            setStorageWarning(false);
+        } catch {
+            setStorageWarning(true);
+        }
+    }, [invoice]);
 
     const totals = useMemo(() => {
         const subtotal = invoice.items.reduce((sum, item) => sum + Number(item.quantity) * Number(item.rate), 0);
@@ -51,7 +102,8 @@ const InvoiceBuilder = () => {
     };
 
     return <section className={styles.invoiceBuilder} id="workspace">
-        <div className={styles.titleRow}><div><p className={styles.context}>INVOICE WORKSPACE</p><h1>Make it clear.<br /><span>Make it payable.</span></h1><p className={styles.description}>Shape the details on the left. Your invoice updates as you work.</p></div><div className={styles.localBadge}><FiFileText aria-hidden="true" /><span>Saved in this browser</span></div></div>
+        {storageWarning && <p className={styles.storageWarning} role="alert">Browser storage is unavailable or full. Invoice changes may not be saved after you leave this page.</p>}
+        <div className={styles.titleRow}><div><p className={styles.context}>INVOICE WORKSPACE</p><h1>Make it clear.<br /><span>Make it payable.</span></h1><p className={styles.description}>Shape the details on the left. Your invoice updates as you work.</p></div><div className={styles.localBadge}><FiFileText aria-hidden="true" /><span>{storageWarning ? "Storage unavailable" : "Saved in this browser"}</span></div></div>
         <div className={styles.workspace}>
             <section className={styles.editorPanel} aria-label="Invoice details">
                 <div className={styles.editorHeading}><div><h2>Invoice details</h2><p>Keep the payment terms and line items current.</p></div><button type="button" className={styles.printButton} onClick={() => window.print()}><FiPrinter aria-hidden="true" /> Print / PDF</button></div>

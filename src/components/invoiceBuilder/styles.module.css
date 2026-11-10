@@ -1,4 +1,5 @@
 .invoiceBuilder {
+    .storageWarning { margin: 0 0 14px; padding: 10px 12px; border: 1px solid #dfb568; border-radius: 9px; color: #744a11; background: #fff7e7; font-size: 11px; }
     .titleRow { display: flex; align-items: end; justify-content: space-between; gap: 20px; padding: 16px 0 21px; }
     .context { color: var(--accent); font-size: 9px; font-weight: 800; letter-spacing: .14em; }
     .titleRow h1 { margin-top: 8px; font-size: clamp(38px, 4vw, 52px); font-weight: 750; line-height: 1; letter-spacing: -.055em; }
